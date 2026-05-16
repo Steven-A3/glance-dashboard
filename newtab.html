@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="aurora">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <main class="dashboard">
+    <header class="hero">
+      <div class="time-block">
+        <div id="time" class="time">--:--:--</div>
+        <div id="date" class="date">Loading…</div>
+        <div id="location" class="location">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span id="location-text">Detecting location…</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="grid">
+      <article class="card weather-card" id="weather-card">
+        <div class="card-header">
+          <span class="card-label">Weather</span>
+          <span class="card-status" id="weather-status">…</span>
+        </div>
+        <div class="card-body">
+          <div class="weather-main">
+            <div id="weather-icon" class="weather-icon">☀️</div>
+            <div class="weather-temp">
+              <span id="weather-temp" class="big-number">--</span>
+              <span class="unit">°C</span>
+            </div>
+          </div>
+          <div id="weather-desc" class="card-desc">—</div>
+        </div>
+        <div class="card-footer">
+          <div class="metric">
+            <span class="metric-label">Feels</span>
+            <span id="weather-feels" class="metric-value">—°</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Humidity</span>
+            <span id="weather-humidity" class="metric-value">—%</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Wind</span>
+            <span id="weather-wind" class="metric-value">— km/h</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card air-card" id="air-card">
+        <div class="card-header">
+          <span class="card-label">Air Quality</span>
+          <span class="card-status" id="air-status">…</span>
+        </div>
+        <div class="card-body">
+          <div class="aqi-display">
+            <div class="aqi-ring" id="aqi-ring">
+              <span id="aqi-value" class="big-number">--</span>
+              <span class="aqi-unit">KHAI</span>
+            </div>
+          </div>
+          <div id="air-desc" class="card-desc">—</div>
+        </div>
+        <div class="card-footer">
+          <div class="metric">
+            <span class="metric-label">PM2.5</span>
+            <span id="air-pm25" class="metric-value">— μg/m³</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">PM10</span>
+            <span id="air-pm10" class="metric-value">— μg/m³</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card market-card" id="kospi-card">
+        <div class="card-header">
+          <span class="card-label">KOSPI</span>
+          <span class="card-status" id="kospi-status">…</span>
+        </div>
+        <div class="card-body">
+          <div class="market-main">
+            <span id="kospi-value" class="big-number">--</span>
+            <span id="kospi-change" class="change neutral">—</span>
+          </div>
+          <div class="card-desc">한국종합주가지수</div>
+        </div>
+        <div class="card-footer">
+          <div class="metric">
+            <span class="metric-label">Open</span>
+            <span id="kospi-open" class="metric-value">—</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">High</span>
+            <span id="kospi-high" class="metric-value">—</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Low</span>
+            <span id="kospi-low" class="metric-value">—</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card market-card" id="fx-card">
+        <div class="card-header">
+          <span class="card-label">USD / KRW</span>
+          <span class="card-status" id="fx-status">…</span>
+        </div>
+        <div class="card-body">
+          <div class="market-main">
+            <span id="fx-value" class="big-number">--</span>
+            <span class="unit">₩</span>
+          </div>
+          <div class="card-desc">1 USD to Korean Won</div>
+        </div>
+        <div class="card-footer">
+          <div class="metric">
+            <span class="metric-label">100 USD</span>
+            <span id="fx-100" class="metric-value">—</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">EUR/KRW</span>
+            <span id="fx-eur" class="metric-value">—</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">JPY/KRW</span>
+            <span id="fx-jpy" class="metric-value">—</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <footer class="foot">
+      <span id="last-updated">Loading data…</span>
+      <button id="refresh" class="refresh-btn" title="Refresh">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        Refresh
+      </button>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

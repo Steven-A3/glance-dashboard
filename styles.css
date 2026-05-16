@@ -1,0 +1,446 @@
+/* ============== Reset / base ============== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-0: #0a0e1a;
+  --bg-1: #0f1428;
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-strong: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --text: #f5f7fa;
+  --text-muted: rgba(245, 247, 250, 0.65);
+  --text-dim: rgba(245, 247, 250, 0.42);
+  --accent: #7c9cff;
+  --accent-soft: rgba(124, 156, 255, 0.18);
+  --green: #4ade80;
+  --red: #f87171;
+  --yellow: #fbbf24;
+  --orange: #fb923c;
+  --shadow-card: 0 12px 48px rgba(0, 0, 0, 0.35), 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+  --radius-card: 24px;
+  --radius-pill: 999px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: radial-gradient(ellipse at top, var(--bg-1) 0%, var(--bg-0) 60%);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============== Aurora background ============== */
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.55;
+  animation: float 20s ease-in-out infinite;
+}
+
+.blob-1 {
+  width: 520px;
+  height: 520px;
+  background: #5b6cff;
+  top: -120px;
+  left: -100px;
+  animation-delay: 0s;
+}
+
+.blob-2 {
+  width: 480px;
+  height: 480px;
+  background: #c084fc;
+  top: 30%;
+  right: -120px;
+  animation-delay: -7s;
+}
+
+.blob-3 {
+  width: 440px;
+  height: 440px;
+  background: #38bdf8;
+  bottom: -160px;
+  left: 30%;
+  animation-delay: -13s;
+  opacity: 0.4;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(40px, -30px) scale(1.05); }
+  66%      { transform: translate(-30px, 40px) scale(0.95); }
+}
+
+/* ============== Layout ============== */
+.dashboard {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 56px 32px 40px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* ============== Hero / time ============== */
+.hero {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 28px 0 12px;
+}
+
+.time-block {
+  animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(72px, 11vw, 140px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.65) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 80px rgba(124, 156, 255, 0.15);
+}
+
+.date {
+  margin-top: 14px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.location {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  color: var(--text-muted);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.location svg { color: var(--accent); }
+
+/* ============== Grid + cards ============== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 24px 26px;
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s,
+              background 0.3s;
+  animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0) 50%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  background: var(--surface-strong);
+}
+
+#weather-card { animation-delay: 0.05s; }
+#air-card    { animation-delay: 0.10s; }
+#kospi-card  { animation-delay: 0.15s; }
+#fx-card     { animation-delay: 0.20s; }
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+}
+
+.card-status {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-dim);
+  padding: 3px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.04em;
+}
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.big-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 44px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  line-height: 1;
+}
+
+.unit {
+  font-size: 18px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.card-footer {
+  display: flex;
+  gap: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+
+.metric-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+
+.metric-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* ============== Weather card ============== */
+.weather-main {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 4px;
+}
+
+.weather-icon {
+  font-size: 56px;
+  line-height: 1;
+  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.4));
+}
+
+.weather-temp {
+  display: flex;
+  align-items: baseline;
+}
+
+/* ============== Air quality card ============== */
+.aqi-display {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.aqi-ring {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: conic-gradient(var(--aqi-color, var(--green)) var(--aqi-pct, 0%), rgba(255, 255, 255, 0.06) 0%);
+  transition: background 0.6s ease;
+}
+
+.aqi-ring::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: var(--bg-0);
+}
+
+.aqi-ring .big-number,
+.aqi-ring .aqi-unit {
+  position: relative;
+  z-index: 1;
+}
+
+.aqi-ring .big-number { font-size: 30px; }
+
+.aqi-unit {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+/* ============== Market cards ============== */
+.market-main {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.change {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.01em;
+}
+
+.change.up    { color: var(--green); background: rgba(74, 222, 128, 0.12); }
+.change.down  { color: var(--red);   background: rgba(248, 113, 113, 0.12); }
+.change.neutral { color: var(--text-muted); background: var(--surface); }
+
+/* ============== Footer ============== */
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 4px 0;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.4s;
+}
+
+.refresh-btn:hover {
+  background: var(--surface-strong);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.refresh-btn.spinning svg {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============== Animations ============== */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============== Responsive ============== */
+@media (max-width: 640px) {
+  .dashboard { padding: 32px 18px 24px; gap: 28px; }
+  .hero { padding: 12px 0 0; }
+  .grid { grid-template-columns: 1fr; gap: 14px; }
+  .card { padding: 20px 22px; border-radius: 20px; }
+  .big-number { font-size: 36px; }
+  .foot { flex-direction: column; gap: 10px; align-items: flex-start; }
+}
+
+/* ============== Error / loading state ============== */
+.card.error .big-number { color: var(--text-dim); font-size: 22px; }
+.card.error .card-status { color: var(--red); }

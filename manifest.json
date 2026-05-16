@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Glance Dashboard",
+  "version": "1.0.0",
+  "description": "A beautiful new tab dashboard with KOSPI, weather, air quality, time and USD/KRW exchange rate.",
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "host_permissions": [
+    "https://weather.naver.com/*",
+    "https://nominatim.openstreetmap.org/*",
+    "https://open.er-api.com/*",
+    "https://query1.finance.yahoo.com/*"
+  ]
+}
